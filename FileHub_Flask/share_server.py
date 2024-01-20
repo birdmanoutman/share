@@ -1,6 +1,11 @@
 import os
 import re
+from io import BytesIO
 
+import comtypes.client
+import docx
+import fitz  # PyMuPDF
+from PIL import Image
 from flask import Flask, request, redirect, url_for, send_from_directory, render_template_string
 from werkzeug.utils import secure_filename
 
@@ -8,6 +13,40 @@ app = Flask(__name__)
 ROOT_FOLDER = './'
 app.config['UPLOAD_FOLDER'] = ROOT_FOLDER
 
+
+def get_pdf_preview(pdf_path):
+    # 打开PDF文件，提取第一页作为图像
+    doc = fitz.open(pdf_path)
+    page = doc.load_page(0)  # 第一页
+    pix = page.get_pixmap()
+    img = Image.open(BytesIO(pix.tobytes()))
+    preview_path = pdf_path + "_preview.png"
+    img.save(preview_path)
+    return preview_path
+
+
+def get_doc_preview(doc_path):
+    # 打开DOC文件，提取前50个字
+    doc = docx.Document(doc_path)
+    text = []
+    for para in doc.paragraphs:
+        text.append(para.text)
+        if len(' '.join(text)) > 50:
+            break
+    return ' '.join(text)[:50]
+
+
+def pptx_to_jpg(pptx_path, output_folder):
+    powerpoint = comtypes.client.CreateObject("Powerpoint.Application")
+    powerpoint.Visible = 1
+
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    deck = powerpoint.Presentations.Open(pptx_path)
+    deck.Slides[0].Export(os.path.join(output_folder, "slide1.jpg"), "JPG")
+    deck.Close()
+    powerpoint.Quit()
 
 @app.route('/')
 def index():
@@ -45,7 +84,17 @@ def upload_file(folder_name):
         file = request.files.get('file')
         if file and file.filename:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(folder_path, filename))
+            file_save_path = os.path.join(folder_path, filename)
+            file.save(file_save_path)
+
+            # 根据文件类型生成预览
+            if filename.lower().endswith('.pdf'):
+                get_pdf_preview(file_save_path)
+            elif filename.lower().endswith('.docx'):
+                get_doc_preview(file_save_path)
+            elif filename.lower().endswith('.pptx'):
+                pptx_to_jpg(file_save_path, folder_path)
+
             return redirect(url_for('upload_file', folder_name=folder_name))
     files = os.listdir(folder_path)
     return render_template_string('''

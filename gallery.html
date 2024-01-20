@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+    <style>
+        /* Add your CSS styling here */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .image {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="gallery">
+    {% for image in images %}
+    <div class="image">
+        <img alt="Car image" src="{{ image }}">
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

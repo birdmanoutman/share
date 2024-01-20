@@ -157,7 +157,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Document Labeling Script")
 
     # 设置默认文件路径和API密钥
-    default_file_path = 'TXT/一文搞懂华为IPD：没有流程支撑的策略，都是纸上谈兵.pdf'
+    default_file_path = 'TXT/20231102 低风阻大空间毛坯房  设计课题.pptx'
     with open('openaiAPI.txt', 'r') as apifile:
         default_api_key = apifile.read()
         print('api_key:', default_api_key)
