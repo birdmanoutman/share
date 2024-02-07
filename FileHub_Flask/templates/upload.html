@@ -2,40 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>文件上传</title>
+    <title>文件上传到 {{ folder_name }}</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gallery div {
-            width: 100px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-        }
-
-        .file-name {
-            text-align: center;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100px;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
+        /* Your existing CSS styles */
+        /* ... */
     </style>
 </head>
 <body>
@@ -44,20 +14,36 @@
     选择文件: <input name="file" type="file">
     <input type="submit" value="上传">
 </form>
+
 <div class="gallery">
     {% for file in files %}
     <div>
-        <a href="{{ url_for('download_file', folder_name=folder_name, filename=file) }}">
+        <!-- File preview or name -->
+        <a href="{{ url_for('filehub.download_file', folder_name=folder_name, filename=file) }}">
             {% if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
             <img alt="{{ shorten_filename(file) }}"
-                 src="{{ url_for('download_file', folder_name=folder_name, filename=file) }}">
+                 src="{{ url_for('filehub.download_file', folder_name=folder_name, filename=file) }}">
             {% else %}
             <div class="file-name">{{ shorten_filename(file) }}</div>
             {% endif %}
         </a>
+        <!-- Delete Form -->
+        <form action="{{ url_for('filehub.delete_file', folder_name=folder_name, filename=file) }}" method="post">
+            <input type="submit" value="删除">
+        </form>
+        <!-- Move File Form -->
+        <form action="{{ url_for('filehub.move_file', folder_name=folder_name, filename=file) }}" method="post">
+            <input name="destination" placeholder="移动到文件夹" type="text">
+            <input type="submit" value="移动">
+        </form>
+        <!-- Copy File Form -->
+        <form action="{{ url_for('filehub.copy_file', folder_name=folder_name, filename=file) }}" method="post">
+            <input name="destination" placeholder="复制到文件夹" type="text">
+            <input type="submit" value="复制">
+        </form>
     </div>
     {% endfor %}
 </div>
-<a href="{{ url_for('index') }}">返回主页</a>
+<a href="{{ url_for('filehub.index') }}">返回主页</a>
 </body>
 </html>

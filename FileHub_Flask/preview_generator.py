@@ -44,3 +44,21 @@ def pptx_to_jpg(pptx_path, output_folder):
     powerpoint.Quit()
 
     return os.path.join(output_folder, "slide1.jpg")
+
+
+def generate_preview(file_path):
+    """
+    Generate a preview for the given file based on its type.
+
+    :param file_path: The path to the file
+    :return: The path to the generated preview file
+    """
+    _, file_extension = os.path.splitext(file_path)
+    if file_extension.lower() in ['.pdf']:
+        return get_pdf_preview(file_path)
+    elif file_extension.lower() in ['.doc', '.docx']:
+        return get_doc_preview(file_path)
+    elif file_extension.lower() in ['.ppt', '.pptx']:
+        return pptx_to_jpg(file_path, os.path.dirname(file_path))
+    else:
+        return None  # Return None if no preview is available for the file type

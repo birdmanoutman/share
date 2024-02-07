@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>文件共享服务</title>
+    <title>FileHub Home</title>
+    <!-- Add any stylesheets or scripts here -->
 </head>
 <body>
-<h1>选择上传目录</h1>
+<h1>Welcome to FileHub</h1>
+<h2>Select a Directory to Upload Files</h2>
 <ul>
     {% for folder in directories %}
-    <li><a href="{{ url_for('upload_file', folder_name=folder) }}">{{ folder }}</a></li>
+    <li><a href="{{ url_for('filehub.upload_file', folder_name=folder) }}">{{ folder }}</a></li>
     {% endfor %}
 </ul>
 </body>
