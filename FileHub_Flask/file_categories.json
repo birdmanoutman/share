@@ -12,7 +12,15 @@
       "js",
       "html",
       "csv",
-      "json"
+      "json",
+      "caj",
+      "xls",
+      "key",
+      "ppt",
+      "py",
+      "md",
+      "srt",
+      "pde"
     ],
     "IMG": [
       "png",
@@ -23,7 +31,14 @@
       "webp",
       "bmp",
       "gif",
-      "tiff"
+      "tiff",
+      "heic",
+      "tif",
+      "exr",
+      "hdr",
+      "exr",
+      "svg",
+      "eps"
     ],
     "AUDIO": [
       "mp3",
@@ -32,7 +47,8 @@
       "aac",
       "ogg",
       "wma",
-      "m4a"
+      "m4a",
+      "awb"
     ],
     "VIDEO": [
       "mp4",
@@ -42,7 +58,8 @@
       "wmv",
       "flv",
       "mpeg",
-      "3gp"
+      "3gp",
+      "m4v"
     ],
     "3D": [
       "stl",
@@ -54,7 +71,32 @@
       "ma",
       "dae",
       "igs",
-      "stp"
+      "stp",
+      "wire",
+      "step",
+      "catpart",
+      "f3d"
+    ],
+    "OTHER": [
+      "zip",
+      "rar",
+      "exe",
+      "7z",
+      "dmg",
+      "iso",
+      "xz",
+      "bz",
+      "gz",
+      "pkg",
+      "bz2",
+      "tar"
+    ],
+    "trash": [
+      "enw",
+      "ris",
+      "m3u8",
+      "ens",
+      "torrent"
     ]
   }
 }
