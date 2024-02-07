@@ -1,0 +1,61 @@
+{
+  "file_types": {
+    "TXT": [
+      "pdf",
+      "txt",
+      "docx",
+      "doc",
+      "rtf",
+      "odt",
+      "pptx",
+      "xlsx",
+      "js",
+      "html",
+      "csv",
+      "json"
+    ],
+    "IMG": [
+      "png",
+      "jpg",
+      "jpeg",
+      "psd",
+      "ai",
+      "webp",
+      "bmp",
+      "gif",
+      "tiff"
+    ],
+    "AUDIO": [
+      "mp3",
+      "wav",
+      "flac",
+      "aac",
+      "ogg",
+      "wma",
+      "m4a"
+    ],
+    "VIDEO": [
+      "mp4",
+      "avi",
+      "mkv",
+      "mov",
+      "wmv",
+      "flv",
+      "mpeg",
+      "3gp"
+    ],
+    "3D": [
+      "stl",
+      "obj",
+      "fbx",
+      "blend",
+      "blend1",
+      "max",
+      "ma",
+      "dae",
+      "igs",
+      "stp"
+    ]
+  }
+}
+
