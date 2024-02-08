@@ -1,0 +1,368 @@
+{
+  "file_types": {
+    "TXT": [
+      {
+        "extension": "pdf",
+        "description": "便携式文档格式，广泛用于文件分享"
+      },
+      {
+        "extension": "txt",
+        "description": "纯文本文件，不含格式化"
+      },
+      {
+        "extension": "docx",
+        "description": "Microsoft Word文档"
+      },
+      {
+        "extension": "doc",
+        "description": "早期版本的Microsoft Word文档"
+      },
+      {
+        "extension": "rtf",
+        "description": "富文本格式，可以包含基本的格式化"
+      },
+      {
+        "extension": "odt",
+        "description": "开放文档格式，用于文字处理"
+      },
+      {
+        "extension": "pptx",
+        "description": "Microsoft PowerPoint演示文稿"
+      },
+      {
+        "extension": "xlsx",
+        "description": "Microsoft Excel电子表格"
+      },
+      {
+        "extension": "js",
+        "description": "JavaScript脚本文件"
+      },
+      {
+        "extension": "html",
+        "description": "超文本标记语言文件"
+      },
+      {
+        "extension": "csv",
+        "description": "逗号分隔值文件，用于数据表格"
+      },
+      {
+        "extension": "json",
+        "description": "JavaScript对象表示法，用于数据交换"
+      },
+      {
+        "extension": "caj",
+        "description": "中国学术期刊网络出版总库文件"
+      },
+      {
+        "extension": "xls",
+        "description": "早期版本的Microsoft Excel电子表格"
+      },
+      {
+        "extension": "key",
+        "description": "Apple Keynote演示文稿"
+      },
+      {
+        "extension": "ppt",
+        "description": "早期版本的Microsoft PowerPoint演示文稿"
+      },
+      {
+        "extension": "py",
+        "description": "Python脚本文件"
+      },
+      {
+        "extension": "md",
+        "description": "Markdown文档，用于文本格式化"
+      },
+      {
+        "extension": "srt",
+        "description": "字幕文件格式"
+      },
+      {
+        "extension": "pde",
+        "description": "Processing开发环境的项目文件"
+      },
+      {
+        "extension": "sav",
+        "description": "通用的保存文件，可能包含游戏进度或软件数据"
+      }
+    ],
+    "IMG": [
+      {
+        "extension": "png",
+        "description": "无损压缩的图像格式，支持透明度"
+      },
+      {
+        "extension": "jpg",
+        "description": "有损压缩的图像格式，用于照片"
+      },
+      {
+        "extension": "jpeg",
+        "description": "另一种形式的JPG，用于照片"
+      },
+      {
+        "extension": "psd",
+        "description": "Adobe Photoshop文档"
+      },
+      {
+        "extension": "ai",
+        "description": "Adobe Illustrator文档"
+      },
+      {
+        "extension": "webp",
+        "description": "现代图像格式，提供了良好的压缩"
+      },
+      {
+        "extension": "bmp",
+        "description": "位图图像文件，未压缩的像素存储"
+      },
+      {
+        "extension": "gif",
+        "description": "图形交换格式，支持动画"
+      },
+      {
+        "extension": "tiff",
+        "description": "标签图像文件格式，用于存储照片和扫描图像"
+      },
+      {
+        "extension": "heic",
+        "description": "高效图像文件格式，用于苹果设备的照片"
+      },
+      {
+        "extension": "tif",
+        "description": "另一种形式的TIFF"
+      },
+      {
+        "extension": "exr",
+        "description": "高动态范围图像文件格式"
+      },
+      {
+        "extension": "hdr",
+        "description": "同上，用于高动态范围内容"
+      },
+      {
+        "extension": "svg",
+        "description": "可缩放矢量图形，用于网页和打印媒体"
+      },
+      {
+        "extension": "eps",
+        "description": "封装式PostScript文件，用于矢量图形"
+      },
+      {
+        "extension": "ppm",
+        "description": "便携式像素图映射格式"
+      }
+    ],
+    "AUDIO": [
+      {
+        "extension": "mp3",
+        "description": "MPEG音频层III，常用的音频压缩格式"
+      },
+      {
+        "extension": "wav",
+        "description": "波形音频格式，未压缩的音频"
+      },
+      {
+        "extension": "flac",
+        "description": "无损音频编码格式"
+      },
+      {
+        "extension": "aac",
+        "description": "高级音频编码，比MP3更有效的压缩"
+      },
+      {
+        "extension": "ogg",
+        "description": "开放音频格式，可用于音频和视频"
+      },
+      {
+        "extension": "wma",
+        "description": "Windows媒体音频，微软的音频格式"
+      },
+      {
+        "extension": "m4a",
+        "description": "MPEG-4音频文件"
+      },
+      {
+        "extension": "awb",
+        "description": "AMR宽带音频文件"
+      }
+    ],
+    "VIDEO": [
+      {
+        "extension": "mp4",
+        "description": "MPEG-4视频格式，广泛用于数字视频"
+      },
+      {
+        "extension": "avi",
+        "description": "音频视频交错格式，由微软开发"
+      },
+      {
+        "extension": "mkv",
+        "description": "Matroska视频文件，支持多音轨和字幕"
+      },
+      {
+        "extension": "mov",
+        "description": "Apple QuickTime电影格式"
+      },
+      {
+        "extension": "wmv",
+        "description": "Windows媒体视频，微软的视频压缩格式"
+      },
+      {
+        "extension": "flv",
+        "description": "Flash视频格式"
+      },
+      {
+        "extension": "mpeg",
+        "description": "动态图像专家组视频传输格式"
+      },
+      {
+        "extension": "3gp",
+        "description": "用于3G手机的视频格式"
+      },
+      {
+        "extension": "m4v",
+        "description": "MPEG-4视频文件格式，类似于MP4"
+      }
+    ],
+    "3D": [
+      {
+        "extension": "stl",
+        "description": "用于立体打印和计算机辅助设计的文件格式"
+      },
+      {
+        "extension": "obj",
+        "description": "一种标准的3D图像格式"
+      },
+      {
+        "extension": "fbx",
+        "description": "由Autodesk开发的用于3D动画、游戏和渲染的文件格式"
+      },
+      {
+        "extension": "blend",
+        "description": "Blender 3D创建模型的文件格式"
+      },
+      {
+        "extension": "blend1",
+        "description": "Blender软件的备份文件"
+      },
+      {
+        "extension": "max",
+        "description": "3ds Max场景文件"
+      },
+      {
+        "extension": "ma",
+        "description": "Maya ASCII文件"
+      },
+      {
+        "extension": "dae",
+        "description": "数字资产交换文件，用于交换3D资产"
+      },
+      {
+        "extension": "igs",
+        "description": "国际图形交换标准，用于CAD数据"
+      },
+      {
+        "extension": "stp",
+        "description": "用于3D打印机的CAD文件格式"
+      },
+      {
+        "extension": "wire",
+        "description": "Autodesk的3D线框文件"
+      },
+      {
+        "extension": "step",
+        "description": "用于数据交换的标准交换格式"
+      },
+      {
+        "extension": "catpart",
+        "description": "CATIA V5零件文件"
+      },
+      {
+        "extension": "f3d",
+        "description": "Fusion 360度设计文件"
+      }
+    ],
+    "OTHER": [
+      {
+        "extension": "zip",
+        "description": "文件压缩格式，用于文件打包和压缩"
+      },
+      {
+        "extension": "rar",
+        "description": "Roshal Archive，一种压缩文件格式"
+      },
+      {
+        "extension": "exe",
+        "description": "可执行文件格式，用于Windows操作系统"
+      },
+      {
+        "extension": "7z",
+        "description": "7-Zip压缩文件格式"
+      },
+      {
+        "extension": "dmg",
+        "description": "Apple磁盘映像文件，用于MacOS"
+      },
+      {
+        "extension": "iso",
+        "description": "光盘映像文件，用于存储完整的光盘备份"
+      },
+      {
+        "extension": "xz",
+        "description": "基于LZMA算法的压缩文件格式"
+      },
+      {
+        "extension": "bz",
+        "description": "Bzip压缩文件"
+      },
+      {
+        "extension": "gz",
+        "description": "Gzip压缩文件，常用于Unix和Linux系统"
+      },
+      {
+        "extension": "pkg",
+        "description": "Apple MacOS安装包"
+      },
+      {
+        "extension": "bz2",
+        "description": "Bzip2压缩文件，提供比bz更好的压缩率"
+      },
+      {
+        "extension": "tar",
+        "description": "Tape Archive文件，用于文件打包，不压缩"
+      }
+    ],
+    "trash": [
+      {
+        "extension": "enw",
+        "description": "EndNote导入文件"
+      },
+      {
+        "extension": "ris",
+        "description": "用于参考管理软件的研究信息系统格式"
+      },
+      {
+        "extension": "m3u8",
+        "description": "用于多媒体播放列表的文件格式"
+      },
+      {
+        "extension": "ens",
+        "description": "EndNote样式文件"
+      },
+      {
+        "extension": "torrent",
+        "description": "BitTorrent文件，用于点对点文件共享"
+      }
+    ],
+    "font": [
+      {
+        "extension": "ttf",
+        "description": "TrueType字体文件"
+      },
+      {
+        "extension": "otf",
+        "description": "OpenType字体文件"
+      }
+    ]
+  }
+}
