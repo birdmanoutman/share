@@ -20,7 +20,8 @@
       "py",
       "md",
       "srt",
-      "pde"
+      "pde",
+      "sav"
     ],
     "IMG": [
       "png",
@@ -38,7 +39,8 @@
       "hdr",
       "exr",
       "svg",
-      "eps"
+      "eps",
+      "ppm"
     ],
     "AUDIO": [
       "mp3",
@@ -97,6 +99,10 @@
       "m3u8",
       "ens",
       "torrent"
+    ],
+    "font": [
+      "ttf",
+      "otf"
     ]
   }
 }
