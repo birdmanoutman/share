@@ -83,7 +83,7 @@
       },
       {
         "extension": "sav",
-        "description": "通用的保存文件，可能包含游戏进度或软件数据"
+        "description": "spass的保存文件"
       }
     ],
     "IMG": [
