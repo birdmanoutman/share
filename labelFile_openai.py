@@ -1,6 +1,5 @@
 import argparse
 import os
-
 import PyPDF2
 import docx
 import fitz
@@ -135,14 +134,13 @@ def get_openai_labels(api_key, proxy, text):
 
 def main(docx_path, api_key, proxy):
     # TODO: Replace with your actual paths, keys and proxies
-
     if proxy is None:
         proxy = 'socks5://127.0.0.1:7890'
 
     processor = DocumentProcessor(docx_path)
     docx_text = processor.file_name + " :" + processor.extract_text()
-    text_to_classify = docx_text[:500]
-    print('提取的前500字：', text_to_classify)
+    text_to_classify = docx_text[:300]
+    print('提取的前300字：', text_to_classify)
 
     label_str = get_openai_labels(api_key, proxy, text_to_classify)
     print(type(label_str), label_str)

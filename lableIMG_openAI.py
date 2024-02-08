@@ -1,6 +1,5 @@
 import glob
 import os
-
 import clip
 import piexif
 import torch
