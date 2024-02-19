@@ -1,0 +1,39 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+    <!-- 用户接口层 -->
+    <rect x="10" y="10" width="100" height="50" stroke="black" fill="transparent" stroke-width="2"/>
+    <text x="15" y="35">用户接口层</text>
+
+    <!-- 服务层 -->
+    <rect x="10" y="70" width="100" height="50" stroke="black" fill="transparent" stroke-width="2"/>
+    <text x="15" y="95">服务层</text>
+
+    <!-- 数据层 -->
+    <rect x="10" y="130" width="100" height="50" stroke="black" fill="transparent" stroke-width="2"/>
+    <text x="15" y="155">数据层</text>
+
+    <!-- 应用逻辑层 -->
+    <rect x="10" y="190" width="100" height="50" stroke="black" fill="transparent" stroke-width="2"/>
+    <text x="15" y="215">应用逻辑层</text>
+
+    <!-- 集成层 -->
+    <rect x="10" y="250" width="100" height="50" stroke="black" fill="transparent" stroke-width="2"/>
+    <text x="15" y="275">集成层</text>
+
+    <!-- 安全层 -->
+    <rect x="10" y="310" width="100" height="50" stroke="black" fill="transparent" stroke-width="2"/>
+    <text x="15" y="335">安全层</text>
+
+    <!-- 箭头 -->
+    <line x1="60" y1="60" x2="60" y2="70" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="120" x2="60" y2="130" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="180" x2="60" y2="190" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="240" x2="60" y2="250" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="300" x2="60" y2="310" stroke="black" stroke-width="2"/>
+
+    <!-- 箭头尖 -->
+    <polyline points="55,70 60,60 65,70" stroke="black" fill="transparent"/>
+    <polyline points="55,130 60,120 65,130" stroke="black" fill="transparent"/>
+    <polyline points="55,190 60,180 65,190" stroke="black" fill="transparent"/>
+    <polyline points="55,250 60,240 65,250" stroke="black" fill="transparent"/>
+    <polyline points="55,310 60,300 65,310" stroke="black" fill="transparent"/>
+</svg>
