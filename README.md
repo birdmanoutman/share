@@ -19,10 +19,12 @@
 
 借助这个项目，我希望对已有的过往项目文件进行系统性的自动化处理。
 
-参考书目：
+参考视频：
 >[为什么你不需要"第二大脑"](https://www.youtube.com/watch?v=5kNCcpM61eo)
 > P.A.R.A 不是文件系统，是生产系统，tiago forte, Building a Second Brain
-
+>
+>[我是如何快速学习一个领域的](https://www.bilibili.com/video/BV11o4y1s7VY/?spm_id_from=333.337.search-card.all.click&vd_source=1d47a8c44e1d0084ecf47d3631b7e45a)
+>[把知识变成资产: 作为知识博主,我是如何研究一个话题的](https://www.youtube.com/watch?v=MvFIFoKqfus&list=LL&index=8&t=622s)
 两种项目类型：
 P_Sprint
 P_SlowBrun
