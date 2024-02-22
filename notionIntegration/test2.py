@@ -3,7 +3,6 @@ import requests
 
 def add_file_to_notion(api_key, database_id, file_name):
     url = "https://api.notion.com/v1/pages"
-
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
