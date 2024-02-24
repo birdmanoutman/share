@@ -1,3 +1,4 @@
+# autoFormatClassification.py
 import json
 import os
 import shutil
@@ -39,7 +40,7 @@ def classify_files(folder_path, target_folder_path, extension_to_type):
 
 if __name__ == "__main__":
     default_folder_path = r'G:\20230128_下载backup'
-    default_json_file_path = r'FileHub_Flask/file_categories_withDescription.json'
+    default_json_file_path = r'file_categories_withDescription.json'
 
     folder_path = input(f"Enter the folder path (default: {default_folder_path}): ") or default_folder_path
     json_file_path = input(f"Enter the JSON file path (default: {default_json_file_path}): ") or default_json_file_path

@@ -8,7 +8,7 @@ import requests
 from findPagesWithContent import get_id_with_contents
 
 # 从配置文件加载配置
-with open('notionIntConfig.json', 'r', encoding='utf-8') as file:
+with open('../configs/notionIntConfig.json', 'r', encoding='utf-8') as file:
     CONFIGURATION = json.load(file)
     DATABASE_ID = CONFIGURATION['DATABASE']['TXT']
     NOTION_TOKEN = CONFIGURATION["NOTION_TOKEN"]

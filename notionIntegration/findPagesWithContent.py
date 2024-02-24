@@ -6,7 +6,7 @@ import json
 
 import requests
 
-with open(r'notionIntConfig.json', 'r', encoding='utf-8') as file:
+with open(r'../configs/notionIntConfig.json', 'r', encoding='utf-8') as file:
     configdata = json.load(file)
 
 # 初始化

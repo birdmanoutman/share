@@ -1,4 +1,4 @@
-/openaiAPI.txt
+/configs/openaiAPI.txt
 /3D/
 /IMG/
 /VEDIO/
@@ -8,3 +8,4 @@
 /file_operations.log
 /venv/
 /BaiduSyncdisk
+/configs/
