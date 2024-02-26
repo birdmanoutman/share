@@ -1,4 +1,4 @@
-# autoRename.py
+# autoRenameFolder.py
 import datetime
 import os
 import re
@@ -47,15 +47,21 @@ def rename_folders_in_directory(directory_path, exclude_folder_list):
             if avg_date and (avg_date != original_date):
                 new_folder_name = f"{avg_date}_{clean_name}"
                 new_folder_path = os.path.join(root, new_folder_name)
-                print(f"Renaming '{folder_path}' to '{new_folder_path}'")  # 预览重命名操作
-                os.rename(folder_path, new_folder_path)  # 执行重命名
+                print(f"Renaming '{folder_path}' to '{new_folder_path}'")
+                os.rename(folder_path, new_folder_path)
             else:
-                # 如果平均日期与原日期相同或无法计算平均日期，只更新空格为下划线（如果有必要）
-                if folder_name != clean_name:
-                    new_folder_path = os.path.join(root, clean_name)
-                    print(f"Updating '{folder_path}' to '{new_folder_path}'")  # 预览更新操作
-                    os.rename(folder_path, new_folder_path)  # 执行更新
+                # 保持原日期前缀不变，即使是更新操作也要如此
+                if original_date:
+                    # 如果原来有日期前缀，确保它被保留
+                    new_folder_name = f"{original_date}_{clean_name}" if original_date else clean_name
+                else:
+                    new_folder_name = clean_name
+
+                new_folder_path = os.path.join(root, new_folder_name)
+                if folder_path != new_folder_path:  # 确保新旧路径不同才执行重命名
+                    print(f"Updating '{folder_path}' to '{new_folder_path}'")
+                    os.rename(folder_path, new_folder_path)
 
 
 # 示例调用
-rename_folders_in_directory(r"C:\Users\dell\Desktop\share\BaiduSyncdisk\SPrint", [])
+rename_folders_in_directory(r"H:\我的云端硬盘\GOOD_OUTCOMES", [])

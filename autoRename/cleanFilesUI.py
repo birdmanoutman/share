@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 from autoFormatClassification import load_file_types, build_extension_mapping, classify_files
-from autoRename import rename_folders_in_directory
+from autoRenameFolder import rename_folders_in_directory
 
 
 class Application(tk.Tk):

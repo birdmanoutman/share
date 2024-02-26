@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-from autoRename import rename_folders_in_directory  # 确保这个导入路径根据你的文件结构调整
+from autoRenameFolder import rename_folders_in_directory  # 确保这个导入路径根据你的文件结构调整
 
 
 def select_directory():
