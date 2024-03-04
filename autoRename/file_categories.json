@@ -1,0 +1,109 @@
+{
+  "file_types": {
+    "TXT": [
+      "pdf",
+      "txt",
+      "docx",
+      "doc",
+      "rtf",
+      "odt",
+      "pptx",
+      "xlsx",
+      "js",
+      "html",
+      "csv",
+      "json",
+      "caj",
+      "xls",
+      "key",
+      "ppt",
+      "py",
+      "md",
+      "srt",
+      "pde",
+      "sav"
+    ],
+    "IMG": [
+      "png",
+      "jpg",
+      "jpeg",
+      "psd",
+      "ai",
+      "webp",
+      "bmp",
+      "gif",
+      "tiff",
+      "heic",
+      "tif",
+      "exr",
+      "hdr",
+      "exr",
+      "svg",
+      "eps",
+      "ppm"
+    ],
+    "AUDIO": [
+      "mp3",
+      "wav",
+      "flac",
+      "aac",
+      "ogg",
+      "wma",
+      "m4a",
+      "awb"
+    ],
+    "VIDEO": [
+      "mp4",
+      "avi",
+      "mkv",
+      "mov",
+      "wmv",
+      "flv",
+      "mpeg",
+      "3gp",
+      "m4v"
+    ],
+    "3D": [
+      "stl",
+      "obj",
+      "fbx",
+      "blend",
+      "blend1",
+      "max",
+      "ma",
+      "dae",
+      "igs",
+      "stp",
+      "wire",
+      "step",
+      "catpart",
+      "f3d"
+    ],
+    "OTHER": [
+      "zip",
+      "rar",
+      "exe",
+      "7z",
+      "dmg",
+      "iso",
+      "xz",
+      "bz",
+      "gz",
+      "pkg",
+      "bz2",
+      "tar"
+    ],
+    "trash": [
+      "enw",
+      "ris",
+      "m3u8",
+      "ens",
+      "torrent"
+    ],
+    "font": [
+      "ttf",
+      "otf"
+    ]
+  }
+}
+
