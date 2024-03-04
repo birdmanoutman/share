@@ -13,6 +13,7 @@ def get_device_code(client_id):
     headers = {
         'User-Agent': 'pan.baidu.com'
     }
+
     response = requests.get(url, headers=headers, params=params)
     return response.json()  # 返回响应的JSON数据
 

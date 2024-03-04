@@ -16,11 +16,18 @@ logger = Logger()
 # 初始化数据存储
 data_storage = DataStorage()
 
-# 创建API连接
-notion_api = NotionAPI(config_manager.get_notion_api_key())
+# 获取Notion API密钥
+notion_api_key = config_manager.get('notion_api_key')
 
+# 使用Notion API密钥初始化NotionAPI实例
+notion_api = NotionAPI(notion_api_key)
+
+# 获取 Notion API 密钥和数据库 ID
+notion_token = config_manager.get('notion_token')
+database_id = config_manager.get('database_id')
+print(f"notion_token:{notion_token}\ndatabase_id:{database_id}")
 # 初始化同步控制器
-sync_controller = SyncController(data_storage, notion_api, logger)
+sync_controller = SyncController(data_storage, notion_api, logger, notion_token, database_id)
 
 # 启动GUI
 root = tk.Tk()

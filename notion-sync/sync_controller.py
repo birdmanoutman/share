@@ -6,29 +6,32 @@ from notion_api import NotionAPI
 from logger import Logger
 import threading
 import queue
-import time
 
 
 class SyncController:
-    def __init__(self, data_storage: DataStorage, notion_api: NotionAPI, logger: Logger):
+    def __init__(self, data_storage: DataStorage, notion_api: NotionAPI, logger: Logger, notion_token, database_id):
         self.data_storage = data_storage
         self.notion_api = notion_api
         self.logger = logger
         self.event_queue = queue.Queue()
         self.local_watcher = LocalWatcher(self.event_queue, self.data_storage, self.logger)
-        self.notion_watcher = NotionWatcher(self.event_queue, self.data_storage, self.logger)
+        self.notion_watcher = NotionWatcher(self.event_queue, self.data_storage, self.logger, notion_token, database_id)
         self.stop_event = threading.Event()
+        self.thread = None  # 用于同步控制器的主线程
 
     def start(self):
         """启动同步控制器，开始监听本地和Notion的变化"""
+        self.thread = threading.Thread(target=self.run, daemon=True)
+        self.thread.start()
+        self.logger.log("SyncController started.")
+
+    def run(self):
         self.local_watcher.start()
         self.notion_watcher.start()
-        self.logger.log("SyncController started.")
 
         try:
             while not self.stop_event.is_set():
                 try:
-                    # 获取事件
                     event = self.event_queue.get(timeout=1)
                     self.handle_event(event)
                 except queue.Empty:
@@ -36,7 +39,7 @@ class SyncController:
         finally:
             self.local_watcher.stop()
             self.notion_watcher.stop()
-
+            
     def handle_event(self, event):
         """处理事件，同步本地文件系统和Notion"""
         if event['source'] == 'local':

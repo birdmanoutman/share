@@ -1,7 +1,9 @@
+# notion_watcher.py
 import requests
 import threading
 import time
 from datetime import datetime
+
 
 class NotionWatcher:
     def __init__(self, event_queue, data_storage, logger, notion_token, database_id, poll_interval=60):
@@ -20,12 +22,21 @@ class NotionWatcher:
             'Authorization': f'Bearer {self.notion_token}',
             'Notion-Version': '2021-05-13'
         }
+
+        # 确保last_sync_time是符合Notion API要求的格式
+        # Notion API 需要一个以Z结尾的ISO 8601格式的字符串
+        if not self.last_sync_time.endswith('Z'):
+            self.last_sync_time += 'Z'
+
         query = {
-            'filter': {
-                'timestamp': 'last_edited_time',
-                'after': self.last_sync_time
+            "filter": {
+                "property": "Last edited time",
+                "last_edited_time": {
+                    "after": self.last_sync_time
+                }
             }
         }
+
         try:
             response = requests.post(f'https://api.notion.com/v1/databases/{self.database_id}/query', json=query, headers=headers)
             if response.status_code == 200:

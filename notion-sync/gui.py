@@ -1,4 +1,4 @@
-import tkinter as tk
+import threading
 from tkinter import ttk, messagebox
 
 class SyncApp:
@@ -26,26 +26,22 @@ class SyncApp:
 
     def start_sync(self):
         try:
-            # 假设 start_sync 方法启动同步过程，并接受回调以更新状态
-            self.sync_controller.start_sync(self.update_status)
             self.update_status("Syncing...")
+            # 使用线程来避免阻塞GUI，并调用SyncController的start方法
+            threading.Thread(target=self.sync_controller.start, daemon=True).start()
         except Exception as e:
             messagebox.showerror("Error", str(e))
             self.update_status("Error")
 
     def stop_sync(self):
-        # 假设 stop_sync 方法停止同步过程
-        self.sync_controller.stop_sync()
-        self.update_status("Stopped")
+        try:
+            self.sync_controller.stop()
+            self.update_status("Stopped")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+            self.update_status("Error")
 
     def update_status(self, status):
         # 更新状态标签的文本
         self.status_label.config(text=status)
 
-# 假设这里有一些方式来获取或创建 sync_controller 实例
-# sync_controller = ...
-
-# 创建主窗口
-root = tk.Tk()
-app = SyncApp(root, sync_controller)
-root.mainloop()
