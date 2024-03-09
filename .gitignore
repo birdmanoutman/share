@@ -13,3 +13,4 @@
 /notion-sync/config.json
 /Syncdisk
 *.pyc
+.idea
