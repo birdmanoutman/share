@@ -3,7 +3,6 @@
 # 采用了并发请求，参考https://chat.openai.com/share/2cb23ae7-266b-4adf-85c0-cbf0e4d4ec2d
 import concurrent.futures
 import json
-
 import requests
 
 with open(r'../configs/notionIntConfig.json', 'r', encoding='utf-8') as file:
