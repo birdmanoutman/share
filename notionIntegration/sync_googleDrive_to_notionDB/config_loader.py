@@ -1,12 +1,13 @@
-import os
 import json
-from notion_client import Client as NotionClient
+import os
+
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from notion_client import Client as NotionClient
 
 
 class ConfigLoader:
-    def __init__(self, config_path='../configs'):
+    def __init__(self, config_path='../../configs'):
         # 通过环境变量设置代理，以便于管理和更改，避免硬编码
         self.setup_proxy()
 
