@@ -1,7 +1,6 @@
 import concurrent.futures
 import json
 import os
-
 from notion_client import Client
 
 with open(r'../configs/notionIntConfig.json', 'r', encoding='utf-8') as file:
