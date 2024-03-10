@@ -1,8 +1,9 @@
 # 根据文件删除日期还原文件，但是由于服务账号（service account）的权限问题，似乎不起作用
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
 import os
 from datetime import datetime, timezone
+
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 # 设置代理
 os.environ['HTTP_PROXY'] = 'http://localhost:7890'
@@ -16,7 +17,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive']
 # 获取Google Drive服务实例
 def get_google_drive_service_viaServiceCount():
     # 服务账户文件位置
-    SERVICE_ACCOUNT_FILE = '../configs/enzo-file-management-734d6e6d56da.json'
+    SERVICE_ACCOUNT_FILE = '../../configs/enzo-file-management-734d6e6d56da.json'
     credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
     return build('drive', 'v3', credentials=credentials, cache_discovery=False)
