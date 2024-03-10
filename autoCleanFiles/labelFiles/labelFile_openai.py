@@ -157,7 +157,7 @@ if __name__ == "__main__":
 
     # 设置默认文件路径和API密钥
     default_file_path = 'TXT/20231102 低风阻大空间毛坯房  设计课题.pptx'
-    with open('../configs/openaiAPI.txt', 'r') as apifile:
+    with open('../../configs/openaiAPI.txt', 'r') as apifile:
         default_api_key = apifile.read()
         print('api_key:', default_api_key)
 
