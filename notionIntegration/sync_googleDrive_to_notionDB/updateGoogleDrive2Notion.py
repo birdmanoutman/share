@@ -1,6 +1,6 @@
-import utils
+import config_loader
 
-configs = utils.ConfigLoader()
+configs = config_loader.ConfigLoader()
 
 
 def save_start_page_token(token):
