@@ -26,6 +26,7 @@ def list_google_drive_files(folder_id):
             break
     return files
 
+
 def fetch_all_notion_entries(notion_client, notion_database_id):
     notion_entries = {}
     start_cursor = None
@@ -100,6 +101,7 @@ def sync_to_notion(google_file, notion_client, notion_database_id):
             )
     except Exception as e:
         print(f"Error syncing to Notion: {e}")
+
 
 # 主同步函数
 def main():

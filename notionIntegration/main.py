@@ -1,9 +1,9 @@
 import json
 import threading
-
 from directory_scanner import scan_directory
 from local_file_opener import app
 from notion_integrator import create_notion_records_for_directory
+
 
 with open(r'../configs/notionIntConfig.json', 'r', encoding='utf-8') as file:
     configdata = json.load(file)
