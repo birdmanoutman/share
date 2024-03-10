@@ -7,26 +7,22 @@ def save_start_page_token(token):
     with open('drive_start_page_token.txt', 'w') as file:
         file.write(token)
 
-
 def load_start_page_token(service):
     try:
         with open('drive_start_page_token.txt', 'r') as file:
             return file.read().strip()
     except FileNotFoundError:
-        # 如果文件不存在，获取新的start_page_token
         response = service.changes().getStartPageToken().execute()
         start_page_token = response.get('startPageToken')
-        # 保存新获取的start_page_token以备后用
         save_start_page_token(start_page_token)
         return start_page_token
-
 
 def get_changes(service, start_page_token):
     changes = []
     page_token = start_page_token
     while page_token is not None:
         response = service.changes().list(pageToken=page_token, spaces='drive',
-                                          fields="nextPageToken, newStartPageToken, changes(file(id, name, mimeType, webViewLink, size, createdTime, modifiedTime))").execute()
+                                          fields="nextPageToken, newStartPageToken, changes(removed, fileId, file(id, name, mimeType, webViewLink, size, createdTime, modifiedTime))").execute()
         changes.extend(response.get('changes', []))
         if 'newStartPageToken' in response:
             save_start_page_token(response['newStartPageToken'])
@@ -34,7 +30,25 @@ def get_changes(service, start_page_token):
     return changes
 
 
-def sync_to_notion(file, notion_client, NOTION_DATABASE_ID):
+def delete_from_notion(file_id, notion_client, NOTION_DATABASE_ID):
+    try:
+        notion_pages = notion_client.databases.query(
+            database_id=NOTION_DATABASE_ID,
+            filter={"property": "Drive File ID", "rich_text": {"equals": file_id}}
+        )
+        for page in notion_pages['results']:
+            notion_client.pages.update(
+                page['id'],
+                archived=True
+            )
+    except Exception as e:
+        print(f"Error removing from Notion: {e}")
+
+
+def sync_to_notion(file, notion_client, NOTION_DATABASE_ID, removed=False):
+    if removed:
+        delete_from_notion(file['id'], notion_client, NOTION_DATABASE_ID)
+        return
     try:
         notion_pages = notion_client.databases.query(
             database_id=NOTION_DATABASE_ID,
@@ -79,10 +93,12 @@ def main():
     start_page_token = load_start_page_token(service)
     changes = get_changes(service, start_page_token)
     for change in changes:
-        if 'file' in change:
-            google_file = change['file']
-            sync_to_notion(google_file, configs.notion_client, configs.NOTION_DATABASE_ID)
-
+        print(change)
+        if 'file' in change and not change.get('removed', False):
+            sync_to_notion(change['file'], configs.notion_client, configs.NOTION_DATABASE_ID)
+        elif change.get('removed', False):
+            # Handle removed files
+            sync_to_notion({'id': change['fileId']}, configs.notion_client, configs.NOTION_DATABASE_ID, removed=True)
 
 if __name__ == '__main__':
     main()
