@@ -1,7 +1,8 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 import config_loader
 
 configs = config_loader.ConfigLoader()
-
 
 # 获取Google Drive指定文件夹的文件列表函数
 def list_google_drive_files(folder_id):
@@ -103,29 +104,42 @@ def sync_to_notion(google_file, notion_client, notion_database_id):
         print(f"Error syncing to Notion: {e}")
 
 
-# 主同步函数
 def main():
     folder_id = configs.GOOGLEDRIVE_ID['TXT']
     files = list_google_drive_files(folder_id)
-    google_file_ids = {file['id'] for file in files}  # Set of Google Drive file IDs
-
-    # Fetch all Notion entries and their Drive File IDs
     notion_entries = fetch_all_notion_entries(configs.notion_client, configs.NOTION_DATABASE_ID)
 
-    # Determine which Notion entries need to be deleted
+    google_file_ids = {file['id']: file for file in files}  # Dictionary of Google Drive file ID to file object
+
+    # 用于记录需要更新的文件ID
+    files_to_update = {}
+
+    # 检查Notion中哪些条目需要被删除或更新
     for drive_file_id, notion_page_id in notion_entries.items():
         if drive_file_id not in google_file_ids:
+            # 删除不存在的文件对应的Notion条目
             try:
-                # This assumes you want to delete the entry. Adjust as necessary for archiving, etc.
                 configs.notion_client.pages.update(page_id=notion_page_id, archived=True)
                 print(f"Archived Notion entry for missing Google Drive file ID: {drive_file_id}")
             except Exception as e:
                 print(f"Error archiving Notion entry: {e}")
+        else:
+            # 标记存在的文件，稍后更新
+            files_to_update[drive_file_id] = google_file_ids[drive_file_id]
+            print("标记存在的文件，稍后更新:", drive_file_id)
 
-    # Continue with the existing logic to update or create entries for current files
-    for google_file in files:
-        print(google_file)  # Debugging print, consider removing for production
-        sync_to_notion(google_file, configs.notion_client, configs.NOTION_DATABASE_ID)
+    print("files to update:", files_to_update)
+    # 更新或创建Notion条目
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        future_to_file = {executor.submit(sync_to_notion, file, configs.notion_client, configs.NOTION_DATABASE_ID): file
+                          for file in google_file_ids.values()}
+        for future in as_completed(future_to_file):
+            file = future_to_file[future]
+            try:
+                future.result()  # 如果函数抛出异常，这里会重新抛出
+                print(f"File {file['name']} synced successfully.")
+            except Exception as e:
+                print(f"Error syncing file {file['name']}: {e}")
 
 
 if __name__ == '__main__':
