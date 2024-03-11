@@ -105,7 +105,7 @@ def sync_to_notion(google_file, notion_client, notion_database_id):
 
 # 主同步函数
 def main():
-    folder_id = '1-7JaTelGwbTuQ0YCuYIj61ugdEGAXf1y'
+    folder_id = configs.GOOGLEDRIVE_ID['TXT']
     files = list_google_drive_files(folder_id)
     google_file_ids = {file['id'] for file in files}  # Set of Google Drive file IDs
 

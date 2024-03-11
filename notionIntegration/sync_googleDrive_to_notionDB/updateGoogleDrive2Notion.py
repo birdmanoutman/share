@@ -2,6 +2,9 @@ import config_loader
 
 configs = config_loader.ConfigLoader()
 
+# 假设 TXT 文件夹的 ID，你需要替换为实际的文件夹 ID
+TXT_FOLDER_ID = configs.GOOGLEDRIVE_ID['TXT']
+print(TXT_FOLDER_ID)
 
 def save_start_page_token(token):
     with open('drive_start_page_token.txt', 'w') as file:
@@ -22,8 +25,11 @@ def get_changes(service, start_page_token):
     page_token = start_page_token
     while page_token is not None:
         response = service.changes().list(pageToken=page_token, spaces='drive',
-                                          fields="nextPageToken, newStartPageToken, changes(removed, fileId, file(id, name, mimeType, webViewLink, size, createdTime, modifiedTime))").execute()
-        changes.extend(response.get('changes', []))
+                                          fields="nextPageToken, newStartPageToken, changes(removed, fileId, file(id, name, mimeType, webViewLink, size, createdTime, modifiedTime, parents))").execute()
+        # 过滤出 TXT 文件的变动
+        txt_changes = [change for change in response.get('changes', []) if
+                       change.get('file', {}).get('mimeType') == 'text/plain']
+        changes.extend(txt_changes)
         if 'newStartPageToken' in response:
             save_start_page_token(response['newStartPageToken'])
         page_token = response.get('nextPageToken')
@@ -46,6 +52,9 @@ def delete_from_notion(file_id, notion_client, NOTION_DATABASE_ID):
 
 
 def sync_to_notion(file, notion_client, NOTION_DATABASE_ID, removed=False):
+    # 验证文件是否在 TXT 文件夹中
+    if TXT_FOLDER_ID not in file.get('parents', []):
+        return  # 如果不在指定文件夹中，则跳过同步
     if removed:
         delete_from_notion(file['id'], notion_client, NOTION_DATABASE_ID)
         return
