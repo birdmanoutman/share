@@ -1,5 +1,6 @@
 import json
 import os
+
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from notion_client import Client as NotionClient
@@ -26,7 +27,7 @@ class ConfigLoader:
         proxy = os.getenv('PROXY_URL', 'http://localhost:7890')  # 从环境变量读取，如果不存在则使用默认值
         os.environ['HTTP_PROXY'] = proxy
         os.environ['HTTPS_PROXY'] = proxy
-        os.environ['PYTHONHTTPSVERIFY'] = '0' # 设置环境变量PYTHONHTTPSVERIFY=0来禁用HTTPS验证作为临时的解决方法。
+        # os.environ['PYTHONHTTPSVERIFY'] = '0'  # 设置环境变量PYTHONHTTPSVERIFY=0来禁用HTTPS验证作为临时的解决方法。
 
     def load_notion_config(self, config_path):
         try:
@@ -51,7 +52,6 @@ class ConfigLoader:
         except Exception as e:
             print(f"Failed to initialize Google Drive service: {e}")
             raise
-
 
 
 # 使用示例
