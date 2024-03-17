@@ -93,7 +93,8 @@ def sync_to_notion(google_file, notion_client, notion_database_id):
                 parent={"database_id": notion_database_id},
                 properties={
                     "Name": {"title": [{"text": {"content": google_file['name']}}]},
-                    "Drive File ID": {"text": [{"text": {"content": google_file['id']}}]},
+                    "Drive File ID": {"rich_text": [{"text": {"content": google_file['id']}}]},
+                    # 这个是直接用来识别notion数据库中没有对应文件的
                     "Drive Link": {"url": webViewLink},
                     "Size": {"number": fileSize},
                     "Created Date": {"date": created_date},

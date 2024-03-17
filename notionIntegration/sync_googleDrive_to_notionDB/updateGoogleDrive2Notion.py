@@ -109,5 +109,6 @@ def main():
             # Handle removed files
             sync_to_notion({'id': change['fileId']}, configs.notion_client, configs.NOTION_DATABASE_ID, removed=True)
 
+
 if __name__ == '__main__':
     main()
