@@ -1,11 +1,16 @@
 import os
+import re
 
 
 def rename_files_in_folder(folder_path):
     # 遍历指定文件夹内的所有文件
     for filename in os.listdir(folder_path):
-        # 去除文件名中的多余空格，并用下划线替换空格
-        new_filename = '_'.join(filename.split()).translate(str.maketrans("", "", r'\/:*?"<>|'))
+        # 使用正则表达式替换文件名中的空格为下划线
+        new_filename = re.sub(r'\s+', '_', filename)
+
+        # 使用正则表达式移除特定符号左右的下划线
+        # 符号包括: -, (, ), [, ], {, }
+        new_filename = re.sub(r'_(?=[-(){}\[\]])|(?<=[-(){}\[\]])_', '', new_filename)
 
         # 构建完整的旧文件路径和新文件路径
         old_file_path = os.path.join(folder_path, filename)
