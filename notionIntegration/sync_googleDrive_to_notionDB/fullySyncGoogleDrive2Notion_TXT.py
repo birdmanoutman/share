@@ -107,9 +107,9 @@ def sync_to_notion(google_file, notion_client, notion_database_id):
 
 
 def main():
-    folder_id = configs.GOOGLEDRIVE_ID['TXT']
+    folder_id = configs.GOOGLEDRIVE_IDs['TXT']
     files = list_google_drive_files(folder_id)
-    notion_entries = fetch_all_notion_entries(configs.notion_client, configs.NOTION_DATABASE_ID)
+    notion_entries = fetch_all_notion_entries(configs.notion_client, configs.NOTION_DATABASE_IDs['TXT'])
 
     google_file_ids = {file['id']: file for file in files}  # Dictionary of Google Drive file ID to file object
 
@@ -133,7 +133,7 @@ def main():
     print("files to update:", files_to_update)
     # 更新或创建Notion条目
     with ThreadPoolExecutor(max_workers=10) as executor:
-        future_to_file = {executor.submit(sync_to_notion, file, configs.notion_client, configs.NOTION_DATABASE_ID): file
+        future_to_file = {executor.submit(sync_to_notion, file, configs.notion_client, configs.NOTION_DATABASE_IDs["TXT"]): file
                           for file in google_file_ids.values()}
         for future in as_completed(future_to_file):
             file = future_to_file[future]

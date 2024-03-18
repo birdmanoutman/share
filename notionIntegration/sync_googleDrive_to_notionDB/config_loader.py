@@ -33,9 +33,9 @@ class ConfigLoader:
         try:
             with open(config_path, 'r', encoding='utf-8') as file:
                 configuration = json.load(file)
-                self.NOTION_DATABASE_ID = configuration['DATABASE']['TXT']
+                self.NOTION_DATABASE_IDs = configuration['DATABASE']
                 self.NOTION_TOKEN = configuration["NOTION_TOKEN"]
-                self.GOOGLEDRIVE_ID = configuration["GOOGLEDRIVE_ID"]
+                self.GOOGLEDRIVE_IDs = configuration["GOOGLEDRIVE_ID"]
         except FileNotFoundError:
             print("Notion configuration file not found.")
             raise
