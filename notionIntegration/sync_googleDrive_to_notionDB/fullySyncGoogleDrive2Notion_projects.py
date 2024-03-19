@@ -1,6 +1,7 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from notion_client import Client as NotionClient
+
 import config_loader as cfg_loader
 
 
@@ -11,6 +12,46 @@ class GoogleDriveNotionSync:
         self.google_service = self.get_google_drive_service()
         self.notion_database_id = self.config_loader.NOTION_DATABASE_IDs['sprintProjects']
         self.existing_notion_entries = self.fetch_all_notion_entries()
+
+    def fetch_all_notion_pages_with_titles(self):
+        """Fetch all pages within the Notion database along with their titles and creation times."""
+        pages_with_titles = []
+        start_cursor = None
+        while True:
+            try:
+                response = self.notion_client.databases.query(
+                    database_id=self.notion_database_id,
+                    start_cursor=start_cursor
+                )
+                for page in response.get('results', []):
+                    page_title = page['properties'].get('Name', {}).get('title', [{}])[0].get('plain_text', '')
+                    created_time = page['created_time']  # Capture the creation time for sorting
+                    pages_with_titles.append((page['id'], page_title, created_time))
+
+                if not response.get('has_more', False):
+                    break
+                start_cursor = response.get('next_cursor')
+            except Exception as e:
+                print(f"Error fetching Notion pages: {e}")
+                break
+
+        return pages_with_titles
+
+    def remove_duplicates(self):
+        """Identify and remove duplicate pages based on their titles, preserving only the earliest created instance."""
+        pages_with_titles = self.fetch_all_notion_pages_with_titles()
+        seen_titles = {}
+        for page_id, title, created_time in sorted(pages_with_titles, key=lambda x: x[2]):  # Sort by creation time
+            if title in seen_titles:
+                # If we've seen this title before, delete the current page as it's a duplicate
+                try:
+                    self.notion_client.pages.update(page_id, archived=True)
+                    print(f"Archived duplicate page: {title} (ID: {page_id})")
+                except Exception as e:
+                    print(f"Failed to archive page: {title} (ID: {page_id}), Error: {e}")
+            else:
+                # If this title hasn't been seen, mark it as seen
+                seen_titles[title] = page_id
 
     def fetch_all_notion_entries(self):
         notion_entries = {}
@@ -114,4 +155,5 @@ class GoogleDriveNotionSync:
 if __name__ == "__main__":
     config_loader_instance = cfg_loader.ConfigLoader()  # Use a distinct name for clarity
     sync_instance = GoogleDriveNotionSync(config_loader_instance)
+    sync_instance.remove_duplicates()  # Cast the spell to remove duplicates
     sync_instance.run_sync(config_loader_instance.GOOGLEDRIVE_IDs['sprintProjects'])
