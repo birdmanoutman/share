@@ -63,7 +63,7 @@ class GoogleDriveNotionSync:
                     start_cursor=start_cursor
                 )
                 for page in response.get('results', []):
-                    drive_file_id_list = page['properties'].get('Drive File ID', {}).get('rich_text', [])
+                    drive_file_id_list = page['properties'].get('Google Drive ID', {}).get('rich_text', [])
                     if drive_file_id_list:
                         drive_file_id = drive_file_id_list[0].get('plain_text')
                         notion_entries[drive_file_id] = page['id']
@@ -78,7 +78,12 @@ class GoogleDriveNotionSync:
         return notion_entries
 
     def check_if_page_exists(self, google_drive_id):
-        return self.existing_notion_entries.get(google_drive_id, None)
+        exists = self.existing_notion_entries.get(google_drive_id, None)
+        if exists:
+            print(f"Found existing Notion page for Google Drive ID {google_drive_id}: {exists}")
+        else:
+            print(f"No existing Notion page found for Google Drive ID {google_drive_id}.")
+        return exists
 
     def get_google_drive_service(self):
         credentials = service_account.Credentials.from_service_account_file(
@@ -101,10 +106,14 @@ class GoogleDriveNotionSync:
                 "title": [{"text": {"content": file_info['name']}}]
             },
             "Type": {
-                "select": {"name": "Folder" if file_info['mimeType'] == 'application/vnd.google-apps.folder' else "File"}
+                "select": {
+                    "name": "Folder" if file_info['mimeType'] == 'application/vnd.google-apps.folder' else "File"}
             },
             "Google Drive Link": {
                 "url": f"https://drive.google.com/file/d/{file_info['id']}/view"
+            },
+            "Google Drive ID": {  # Ensure this matches the exact name of the property in your Notion database
+                "rich_text": [{"text": {"content": file_info['id']}}]
             }
         }
 
@@ -130,16 +139,6 @@ class GoogleDriveNotionSync:
             if file['mimeType'] == 'application/vnd.google-apps.folder':
                 self.sync_folder(file['id'], notion_id)
 
-    def delete_orphan_notion_pages(self):
-        # Determine orphaned pages and delete or archive them
-        for drive_id, notion_id in self.existing_notion_entries.items():
-            if not self.check_if_drive_file_exists(drive_id):  # Pseudocode for checking existence in Drive
-                self.notion_client.pages.update(notion_id, archived=True)
-
-    def run_sync(self, folder_id=None):
-        self.sync_folder(folder_id)
-        self.delete_orphan_notion_pages()
-
     def check_if_drive_file_exists(self, drive_id):
         try:
             # 尝试获取文件信息；如果文件存在，这个调用会成功
@@ -151,9 +150,21 @@ class GoogleDriveNotionSync:
             print(f"Error checking file existence: {e}")
             return False
 
+    def delete_orphan_notion_pages(self):
+        # Determine orphaned pages and delete or archive them
+        for drive_id, notion_id in self.existing_notion_entries.items():
+            if not self.check_if_drive_file_exists(drive_id):  # Pseudocode for checking existence in Drive
+                self.notion_client.pages.update(notion_id, archived=True)
+
+    def run_sync(self, folder_id=None):
+        self.existing_notion_entries = self.fetch_all_notion_entries()  # Refresh existing entries
+        self.sync_folder(folder_id)
+        self.delete_orphan_notion_pages()
+
 
 if __name__ == "__main__":
     config_loader_instance = cfg_loader.ConfigLoader()  # Use a distinct name for clarity
     sync_instance = GoogleDriveNotionSync(config_loader_instance)
+
     sync_instance.remove_duplicates()  # Cast the spell to remove duplicates
     sync_instance.run_sync(config_loader_instance.GOOGLEDRIVE_IDs['sprintProjects'])
