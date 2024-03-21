@@ -9,6 +9,9 @@ from notion_client import Client as NotionClient
 class ConfigLoader:
     def __init__(self, config_path='../../configs'):
         # 通过环境变量设置代理，以便于管理和更改，避免硬编码
+        self.GOOGLE_DRIVE_IDs = None
+        self.NOTION_TOKEN = None
+        self.NOTION_DATABASE_IDs = None
         self.setup_proxy()
 
         # 使用绝对路径加载配置文件，增加代码的可移植性
@@ -35,7 +38,7 @@ class ConfigLoader:
                 configuration = json.load(file)
                 self.NOTION_DATABASE_IDs = configuration['DATABASE']
                 self.NOTION_TOKEN = configuration["NOTION_TOKEN"]
-                self.GOOGLEDRIVE_IDs = configuration["GOOGLEDRIVE_ID"]
+                self.GOOGLE_DRIVE_IDs = configuration["GOOGLEDRIVE_ID"]
         except FileNotFoundError:
             print("Notion configuration file not found.")
             raise
